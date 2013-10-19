@@ -1,0 +1,12 @@
+name: Overcast
+version: ${project.version}
+author: DSH105
+description: Harness the Destructive Power of Nature
+website: http://dev.bukkit.org/server-mods/overcast/
+main: ${main.class}
+prefix: Wind
+commands:
+    ocupdate:
+        description: Update the Overcast plugin.
+    overcast:
+        description: Harness the Power of Nature

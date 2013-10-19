@@ -1,21 +1,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.dsh105</groupId>
-    <artifactId>Wind</artifactId>
-    <name>Wind</name>
+    <artifactId>Overcast</artifactId>
+    <name>Overcast</name>
     <properties>
-        <echopet.version>2.0.12-SNAPSHOT</echopet.version>
+        <project.version>0.1-SNAPSHOT</project.version>
         <worldguard.version>5.8.1-SNAPSHOT</worldguard.version>
         <worldedit.version>5.5.8-SNAPSHOT</worldedit.version>
         <minecraft.version>1.6.4</minecraft.version>
         <craftbukkit.version>R0.1</craftbukkit.version>
         <cb_package>v1_6_R3</cb_package>
-        <main.class>io.github.dsh105.wind.Wind</main.class>
+        <main.class>io.github.dsh105.overcast.Overcast</main.class>
     </properties>
-    <version>${echopet.version}</version>
+    <version>${project.version}</version>
     <build>
         <defaultGoal>clean package install</defaultGoal>
-        <finalName>Wind</finalName>
+        <finalName>Overcast</finalName>
         <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
         <resources>
             <resource>
@@ -44,7 +44,7 @@
                     <archive>
                         <manifestEntries>
                             <Main-Class>${main.class}</Main-Class>
-                            <Plugin-Version>${echopet.version}</Plugin-Version>
+                            <Plugin-Version>${project.version}</Plugin-Version>
                             <Minecraft-Version>${minecraft.version}</Minecraft-Version>
                             <CraftBukkit-Version>${craftbukkit.version}</CraftBukkit-Version>
                             <NMS-Package>${cb_package}</NMS-Package>
