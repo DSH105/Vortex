@@ -13,15 +13,4 @@ public class Geometry {
     public static float generateRandomFloat(float min, float max) {
         return min + (r.nextFloat() * ((1 + max) - min));
     }
-
-    public static boolean nearby(double d0, double d1, Operator op) {
-        if (op == Operator.EQUAL) {
-
-        } else if (op == Operator.GREATER_OR_EQUAL) {
-
-        } else if (op == Operator.LESS_OR_EQUAL) {
-
-        }
-        return false;
-    }
 }
