@@ -3,57 +3,17 @@
     <groupId>io.github.dsh105</groupId>
     <artifactId>Overcast</artifactId>
     <name>Overcast</name>
+    <version>0.1-SNAPSHOT</version>
+    <url>http://dev.bukkit.org/bukkit-plugins/overcast/</url>
     <properties>
-        <project.version>0.1-SNAPSHOT</project.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <worldguard.version>5.8.1-SNAPSHOT</worldguard.version>
         <worldedit.version>5.5.8-SNAPSHOT</worldedit.version>
         <minecraft.version>1.6.4</minecraft.version>
-        <craftbukkit.version>R0.1</craftbukkit.version>
+        <craftbukkit.version>R1.1</craftbukkit.version>
         <cb_package>v1_6_R3</cb_package>
         <main.class>io.github.dsh105.overcast.Overcast</main.class>
     </properties>
-    <version>${project.version}</version>
-    <build>
-        <defaultGoal>clean package install</defaultGoal>
-        <finalName>Overcast</finalName>
-        <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
-        <resources>
-            <resource>
-                <targetPath>.</targetPath>
-                <filtering>true</filtering>
-                <directory>${basedir}/src/main/resources/</directory>
-                <includes>
-                    <include>*.yml</include>
-                </includes>
-            </resource>
-        </resources>
-        <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
-                <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.1</version>
-                <configuration>
-                    <archive>
-                        <manifestEntries>
-                            <Main-Class>${main.class}</Main-Class>
-                            <Plugin-Version>${project.version}</Plugin-Version>
-                            <Minecraft-Version>${minecraft.version}</Minecraft-Version>
-                            <CraftBukkit-Version>${craftbukkit.version}</CraftBukkit-Version>
-                            <NMS-Package>${cb_package}</NMS-Package>
-                        </manifestEntries>
-                    </archive>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
     <dependencies>
         <dependency>
             <groupId>org.bukkit</groupId>
@@ -102,4 +62,45 @@
             <url>http://maven.sk89q.com/repo/</url>
         </repository>
     </repositories>
+    <build>
+        <defaultGoal>clean package install</defaultGoal>
+        <finalName>${project.name}</finalName>
+        <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
+        <resources>
+            <resource>
+                <targetPath>.</targetPath>
+                <filtering>true</filtering>
+                <directory>${basedir}/src/main/resources/</directory>
+                <includes>
+                    <include>*.yml</include>
+                </includes>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.1</version>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Main-Class>${main.class}</Main-Class>
+                            <Plugin-Version>${project.version}</Plugin-Version>
+                            <Minecraft-Version>${minecraft.version}</Minecraft-Version>
+                            <CraftBukkit-Version>${craftbukkit.version}</CraftBukkit-Version>
+                            <NMS-Package>${cb_package}</NMS-Package>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

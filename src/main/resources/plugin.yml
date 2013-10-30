@@ -1,10 +1,9 @@
-name: Overcast
+name: ${project.name}
 version: ${project.version}
 author: DSH105
 description: Harness the Destructive Power of Nature
-website: http://dev.bukkit.org/server-mods/overcast/
+website: ${project.url}
 main: ${main.class}
-prefix: Wind
 commands:
     ocupdate:
         description: Update the Overcast plugin.
