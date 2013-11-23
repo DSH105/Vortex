@@ -1,4 +1,4 @@
-package io.github.dsh105.overcast.whirly;
+package io.github.dsh105.overcast.environment.whirly;
 
 import io.github.dsh105.overcast.Overcast;
 import org.bukkit.entity.Entity;
@@ -11,7 +11,7 @@ import java.util.Random;
  * Project by DSH105
  */
 
-public class EntityWhirl extends BukkitRunnable {
+public class SpinEntity extends BukkitRunnable {
 
     Random r = new Random();
 
@@ -19,7 +19,7 @@ public class EntityWhirl extends BukkitRunnable {
     public Entity e;
     public float spiral = 0.1F;
 
-    public EntityWhirl(Entity e, int maxY) {
+    public SpinEntity(Entity e, int maxY) {
         this.e = e;
         this.maxY = maxY;
         this.runTaskTimer(Overcast.getInstance(), 0L, 1L);

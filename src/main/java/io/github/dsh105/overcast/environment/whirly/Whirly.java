@@ -1,4 +1,4 @@
-package io.github.dsh105.overcast.whirly;
+package io.github.dsh105.overcast.environment.whirly;
 
 import io.github.dsh105.overcast.logger.Logger;
 import io.github.dsh105.overcast.util.Particle;
@@ -73,7 +73,7 @@ public class Whirly extends Entity {
         while (i.hasNext()) {
             Entity e = (Entity) i.next();
             if (e instanceof EntityLiving) {
-                EntityWhirl ew = new EntityWhirl(e.getBukkitEntity(), this.maxY);
+                new SpinEntity(e.getBukkitEntity(), this.maxY);
             }
         }
     }

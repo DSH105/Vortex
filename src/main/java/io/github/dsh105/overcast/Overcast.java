@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.util.Random;
 
 /**
  * Project by DSH105
@@ -14,6 +15,7 @@ import java.io.File;
 public class Overcast extends JavaPlugin {
 
     private static Overcast instance;
+    private static Random random;
 
     // Update data
     public boolean update = false;
@@ -24,6 +26,7 @@ public class Overcast extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
+        random = new Random();
     }
 
     @Override
@@ -75,5 +78,9 @@ public class Overcast extends JavaPlugin {
             }
         }
         return false;
+    }
+
+    public static Random r() {
+        return random;
     }
 }
