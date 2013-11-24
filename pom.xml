@@ -1,10 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.dsh105</groupId>
-    <artifactId>Overcast</artifactId>
-    <name>Overcast</name>
+    <artifactId>Vortex</artifactId>
+    <name>Vortex</name>
     <version>0.1-SNAPSHOT</version>
-    <url>http://dev.bukkit.org/bukkit-plugins/overcast/</url>
+    <url>http://dev.bukkit.org/bukkit-plugins/vortex/</url>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <worldguard.version>5.8.1-SNAPSHOT</worldguard.version>
@@ -12,7 +12,7 @@
         <minecraft.version>1.6.4</minecraft.version>
         <craftbukkit.version>R1.1</craftbukkit.version>
         <cb_package>v1_6_R3</cb_package>
-        <main.class>io.github.dsh105.overcast.Overcast</main.class>
+        <main.class>io.github.dsh105.vortex.VortexPlugin</main.class>
     </properties>
     <dependencies>
         <dependency>
