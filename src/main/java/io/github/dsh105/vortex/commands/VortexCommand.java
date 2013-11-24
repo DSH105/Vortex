@@ -1,7 +1,6 @@
 package io.github.dsh105.vortex.commands;
 
 import io.github.dsh105.vortex.environment.tornado.Tornado;
-import io.github.dsh105.vortex.environment.whirly.Whirly;
 import io.github.dsh105.vortex.util.Lang;
 import io.github.dsh105.vortex.util.StringUtil;
 import org.bukkit.ChatColor;
@@ -11,13 +10,13 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
-public class OvercastCommand implements CommandExecutor {
+public class VortexCommand implements CommandExecutor {
 
     public String label;
     ChatColor c1 = io.github.dsh105.vortex.VortexPlugin.getInstance().primaryColour;
     ChatColor c2 = io.github.dsh105.vortex.VortexPlugin.getInstance().secondaryColour;
 
-    public OvercastCommand(String name) {
+    public VortexCommand(String name) {
         this.label = name;
     }
 

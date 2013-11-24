@@ -2,7 +2,7 @@ package io.github.dsh105.vortex;
 
 import io.github.dsh105.vortex.commands.CommandComplete;
 import io.github.dsh105.vortex.commands.CustomCommand;
-import io.github.dsh105.vortex.commands.OvercastCommand;
+import io.github.dsh105.vortex.commands.VortexCommand;
 import io.github.dsh105.vortex.config.YAMLConfig;
 import io.github.dsh105.vortex.config.YAMLConfigManager;
 import io.github.dsh105.vortex.config.options.ConfigOptions;
@@ -34,8 +34,8 @@ public class VortexPlugin extends JavaPlugin {
 
     public ChatColor primaryColour = ChatColor.GOLD;
     public ChatColor secondaryColour = ChatColor.YELLOW;
-    public String prefix = "" + ChatColor.DARK_RED + "[" + ChatColor.RED + "Overcast" + ChatColor.DARK_RED + "] " + ChatColor.RESET;
-    public String cmdString = "oc";
+    public String prefix = "" + ChatColor.DARK_RED + "[" + ChatColor.RED + "Vortex" + ChatColor.DARK_RED + "] " + ChatColor.RESET;
+    public String cmdString = "vortex";
 
     public CommandMap CM;
 
@@ -112,14 +112,14 @@ public class VortexPlugin extends JavaPlugin {
             Logger.log(Logger.LogLevel.SEVERE, "Command registration has failed.", e, true);
         }
 
-        String cmdString = this.config.getString("command", "oc");
+        String cmdString = this.config.getString("command", "vortex");
         if (CM.getCommand(cmdString) != null) {
-            Logger.log(Logger.LogLevel.WARNING, "A command under the name " + ChatColor.RED + "/" + cmdString + ChatColor.YELLOW + " already exists. Trail Command temporarily registered under " + ChatColor.RED + "/st:" + cmdString, true);
+            Logger.log(Logger.LogLevel.WARNING, "A command under the name " + ChatColor.RED + "/" + cmdString + ChatColor.YELLOW + " already exists. Command temporarily registered under " + ChatColor.RED + "/v:" + cmdString, true);
         }
 
         CustomCommand cmd = new CustomCommand(cmdString);
-        CM.register("oc", cmd);
-        cmd.setExecutor(new OvercastCommand(cmdString));
+        CM.register(this.cmdString, cmd);
+        cmd.setExecutor(new VortexCommand(cmdString));
         cmd.setTabCompleter(new CommandComplete());
         this.cmdString = cmdString;
 
