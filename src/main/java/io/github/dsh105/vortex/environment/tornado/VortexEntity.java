@@ -5,6 +5,7 @@ import io.github.dsh105.vortex.util.Particle;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.FallingBlock;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
@@ -28,6 +29,9 @@ public class VortexEntity extends BukkitRunnable {
         this.remove = remove;
         this.entityType = type;
         this.entity.setMetadata("tornado", new FixedMetadataValue(io.github.dsh105.vortex.VortexPlugin.getInstance(), "true"));
+        if (entity instanceof FallingBlock) {
+            ((FallingBlock) entity).setDropItem(false);
+        }
         this.runTaskTimer(io.github.dsh105.vortex.VortexPlugin.getInstance(), 1L, 1L);
     }
 
