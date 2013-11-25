@@ -1,5 +1,6 @@
 package io.github.dsh105.vortex.util;
 
+import io.github.dsh105.vortex.VortexPlugin;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
@@ -11,7 +12,13 @@ import java.util.List;
 public class Geometry {
 
     public static float generateRandomFloat(float min, float max) {
-        return min + (io.github.dsh105.vortex.VortexPlugin.r().nextFloat() * ((1 + max) - min));
+        float f = min + (VortexPlugin.r().nextFloat() * ((1 + max) - min));
+        return VortexPlugin.r().nextBoolean() ? f : -f;
+    }
+
+    public static float generateRandomFloat() {
+        float f = VortexPlugin.r().nextFloat();
+        return VortexPlugin.r().nextBoolean() ? f : -f;
     }
 
     public static boolean nearby(Location l1, Location l2, int radius) {

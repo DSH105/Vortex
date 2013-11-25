@@ -1,5 +1,6 @@
 package io.github.dsh105.vortex.util;
 
+import io.github.dsh105.vortex.util.ReflectionUtil;
 import net.minecraft.server.v1_6_R3.Packet63WorldParticles;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -39,6 +40,8 @@ public enum Particle {
 
     WHIRLY_SMOKE("largesmoke", 0F, 10),
     WHIRLY_CLOUD("explode", 0F, 1),
+
+    BLOCK_BREAK("tilecrack", 0F, 100),
     ;
 
 	/*
@@ -141,5 +144,45 @@ public enum Particle {
         ReflectionUtil.setValue(packet, "h", defaultSpeed);
         ReflectionUtil.setValue(packet, "i", particleAmount);
         ReflectionUtil.sendPacket(p, packet);
+    }
+
+    public void sendBlockBreak(World world, double x, double y, double z, int blockId, int blockMeta) throws Exception {
+        Object packet = Class.forName(
+                "net.minecraft.server." + ReflectionUtil.getVersionString()
+                        + ".Packet63WorldParticles").getConstructors()[0].newInstance();
+        ReflectionUtil.setValue(packet, "a", particleName + "_" + blockId + "_" + blockMeta);
+        ReflectionUtil.setValue(packet, "b", (float) x);
+        ReflectionUtil.setValue(packet, "c", (float) y);
+        ReflectionUtil.setValue(packet, "d", (float) z);
+        ReflectionUtil.setValue(packet, "e", new Random().nextFloat());
+        ReflectionUtil.setValue(packet, "f", new Random().nextFloat());
+        ReflectionUtil.setValue(packet, "g", new Random().nextFloat());
+        ReflectionUtil.setValue(packet, "h", defaultSpeed);
+        ReflectionUtil.setValue(packet, "i", particleAmount);
+        ReflectionUtil.sendPacket(new Location(world, x, y, z), packet);
+    }
+
+    public void sendBlockBreak(World world, double x, double y, double z, int blockId, int blockMeta, Vector v) throws Exception {
+        Object packet = Class.forName(
+                "net.minecraft.server." + ReflectionUtil.getVersionString()
+                        + ".Packet63WorldParticles").getConstructors()[0].newInstance();
+        ReflectionUtil.setValue(packet, "a", particleName + "_" + blockId + "_" + blockMeta);
+        ReflectionUtil.setValue(packet, "b", (float) x);
+        ReflectionUtil.setValue(packet, "c", (float) y);
+        ReflectionUtil.setValue(packet, "d", (float) z);
+        ReflectionUtil.setValue(packet, "e", v.getX());
+        ReflectionUtil.setValue(packet, "f", v.getY());
+        ReflectionUtil.setValue(packet, "g", v.getZ());
+        ReflectionUtil.setValue(packet, "h", defaultSpeed);
+        ReflectionUtil.setValue(packet, "i", particleAmount);
+        ReflectionUtil.sendPacket(new Location(world, x, y, z), packet);
+    }
+
+    public void sendBlockBreak(Location l, int blockId, int blockMeta) throws Exception {
+        this.sendBlockBreak(l.getWorld(), l.getX(), l.getY(), l.getZ(), blockId, blockMeta);
+    }
+
+    public void sendBlockBreak(Location l, int blockId, int blockMeta, Vector v) throws Exception {
+        this.sendBlockBreak(l.getWorld(), l.getX(), l.getY(), l.getZ(), blockId, blockMeta, v);
     }
 }
