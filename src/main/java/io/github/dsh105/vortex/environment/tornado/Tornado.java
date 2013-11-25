@@ -23,7 +23,6 @@ public class Tornado extends Environment {
     public BlockData lastBlock = new BlockData(Material.WEB, (byte) 0);
     public Location location;
     public float speed;
-    public int liveTime;
     public int height = 40;
     public int maxY;
     public int maxBlocks = 100;
@@ -31,10 +30,10 @@ public class Tornado extends Environment {
     public ArrayDeque<VortexEntity> entities = new ArrayDeque<VortexEntity>();
 
     public Tornado(Location location, Vector direction, float speed, int liveTime, int height, int maximumBlocks) {
+        super(liveTime);
         this.location = location;
         this.direction = direction;
         this.speed = speed;
-        this.liveTime = liveTime;
         this.height = height;
         this.maxY = this.location.getBlockY() + height;
         this.maxBlocks = maximumBlocks;
@@ -46,6 +45,7 @@ public class Tornado extends Environment {
 
     @Override
     public void onLive() {
+        super.onLive();
         if (this.direction != null) {
             this.location.add(this.direction);
         }
@@ -63,12 +63,8 @@ public class Tornado extends Environment {
             this.blocks.add(fb);
         }
 
-        if (this.blocks.size() > this.maxBlocks) {
+        while (this.blocks.size() >= this.maxBlocks) {
             this.removeBlock(blocks.getFirst());
-        }
-
-        if (this.age >= this.liveTime) {
-            this.dissipate();
         }
 
         List<Entity> entityList = Geometry.getNearbyEntities(this.getLocation(), 4);
@@ -78,6 +74,10 @@ public class Tornado extends Environment {
                     this.entities.add(new VortexEntity(this, e, false, VortexEntity.VortexEntityType.ENTITY));
                 }
             }
+        }
+
+        if (this.age >= this.liveTime) {
+            this.end();
         }
     }
 
@@ -105,17 +105,19 @@ public class Tornado extends Environment {
         return this.location.getWorld();
     }
 
-    public void dissipate() {
-        this.end();
+    @Override
+    public void end() {
+        super.end();
         Iterator<VortexEntity> i = this.blocks.iterator();
         while (i.hasNext()) {
             VortexEntity ve = i.next();
             this.removeBlock(ve);
-            try {
-                Particle.CLOUD.sendTo(ve.entity.getLocation());
-            } catch (Exception e) {
-                Logger.log(Logger.LogLevel.WARNING, "Failed to generate Tornado Cloud particle.", e, true);
-            }
+        }
+
+        Iterator<VortexEntity> i2 = this.entities.iterator();
+        while (i2.hasNext()) {
+            VortexEntity ve = i2.next();
+            this.removeMob(ve);
         }
     }
 }

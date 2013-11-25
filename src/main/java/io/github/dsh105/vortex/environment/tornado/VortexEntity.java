@@ -78,7 +78,7 @@ public class VortexEntity extends BukkitRunnable {
     }
 
     @Override
-    public void cancel() {
+    public synchronized void cancel() throws IllegalStateException {
         super.cancel();
         this.entity.removeMetadata("tornado", io.github.dsh105.vortex.VortexPlugin.getInstance());
     }
