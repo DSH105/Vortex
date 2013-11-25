@@ -12,7 +12,6 @@ public class EnvironmentTick extends BukkitRunnable {
 
     @Override
     public void run() {
-        this.environment.age++;
         this.environment.onLive();
     }
 }
