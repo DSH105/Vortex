@@ -8,8 +8,12 @@ import io.github.dsh105.vortex.util.Particle;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
+import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.ArrayList;
 
 public class BuildTask extends BukkitRunnable {
 
@@ -47,10 +51,13 @@ public class BuildTask extends BukkitRunnable {
                 l.setY(this.buildLocation.getY() + i);
                 for (Location l2 : Geometry.circle(l, this.maxRadius, 1, false, false, false)) {
                     Block b = l2.getBlock();
-                    if (b.getType().equals(Material.OBSIDIAN) || b.getType().equals(Material.COAL_BLOCK)) {
+                    if (b.hasMetadata("volcano-" + this.volcano.id)) {
                         Location l3 = b.getLocation().clone();
                         l3.setY(l2.getY() + 1);
-                        l3.getBlock().setTypeIdAndData(b.getTypeId(), b.getData(), false);
+                        Block b1 = l3.getBlock();
+                        b1.setTypeIdAndData(b.getTypeId(), b.getData(), false);
+                        b.removeMetadata("volcano-" + this.volcano.id, VortexPlugin.getInstance());
+                        b1.setMetadata("volcano-" + this.volcano.id, new FixedMetadataValue(VortexPlugin.getInstance(), "true"));
                         b.setType(Material.AIR);
                     }
                 }
@@ -63,6 +70,7 @@ public class BuildTask extends BukkitRunnable {
                 Material m = VortexPlugin.r().nextInt(3) == 2 ? Material.COAL_BLOCK : VortexPlugin.r().nextBoolean() ? Material.OBSIDIAN : Material.STONE;
                 Block block = location.getBlock();
                 block.setType(m);
+                block.setMetadata("volcano-" + this.volcano.id, new FixedMetadataValue(VortexPlugin.getInstance(), "true"));
                 /*try {
                     Particle.BLOCK_BREAK.sendBlockBreak(location, m.getId(), b.getData());
                 } catch (Exception e) {
@@ -70,6 +78,8 @@ public class BuildTask extends BukkitRunnable {
                 }*/
             }
         }
+        this.buildLocation.getWorld().playSound(this.buildLocation, Sound.ENDERDRAGON_HIT, 10F, 1F);
+
         this.buildRadius++;
         this.builtLayers++;
     }
