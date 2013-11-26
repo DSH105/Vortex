@@ -26,6 +26,10 @@ public class Tornado extends Environment {
     public int height = 40;
     public int maxY;
     public int maxBlocks = 100;
+
+    public boolean pickupBlocks = true;
+    public boolean pickupEntities = true;
+
     public ArrayDeque<VortexEntity> blocks = new ArrayDeque<VortexEntity>();
     public ArrayDeque<VortexEntity> entities = new ArrayDeque<VortexEntity>();
 
@@ -49,29 +53,34 @@ public class Tornado extends Environment {
         if (this.direction != null) {
             this.location.add(this.direction);
         }
-        Location l = this.getLocation().clone();
-        l.setY(l.getY() - 5);
-        List<Location> list = Geometry.circle(l, 5, this.maxY / 2, false, true, false);
-        if (!list.isEmpty()) {
-            Block b = list.get(io.github.dsh105.vortex.VortexPlugin.r().nextInt(list.size())).getBlock();
-            VortexEntity fb = new VortexEntity(this, this.getWorld().spawnFallingBlock(b.getLocation(), b.getType(), b.getData()), false, VortexEntity.VortexEntityType.BLOCK);
-            this.lastBlock = new BlockData(b.getType(), b.getData());
-            b.setType(Material.AIR);
-            this.blocks.add(fb);
-        } else {
-            VortexEntity fb = new VortexEntity(this, this.getWorld().spawnFallingBlock(this.getLocation(), this.lastBlock.blockType, this.lastBlock.blockMeta), false, VortexEntity.VortexEntityType.BLOCK);
-            this.blocks.add(fb);
+
+        if (this.pickupBlocks) {
+            Location l = this.getLocation().clone();
+            l.setY(l.getY() - 5);
+            List<Location> list = Geometry.circle(l, 5, this.maxY / 2, false, true, false);
+            if (!list.isEmpty()) {
+                Block b = list.get(io.github.dsh105.vortex.VortexPlugin.r().nextInt(list.size())).getBlock();
+                VortexEntity fb = new VortexEntity(this, this.getWorld().spawnFallingBlock(b.getLocation(), b.getType(), b.getData()), false, VortexEntity.VortexEntityType.BLOCK);
+                this.lastBlock = new BlockData(b.getType(), b.getData());
+                b.setType(Material.AIR);
+                this.blocks.add(fb);
+            } else {
+                VortexEntity fb = new VortexEntity(this, this.getWorld().spawnFallingBlock(this.getLocation(), this.lastBlock.blockType, this.lastBlock.blockMeta), false, VortexEntity.VortexEntityType.BLOCK);
+                this.blocks.add(fb);
+            }
+
+            while (this.blocks.size() >= this.maxBlocks) {
+                this.removeBlock(blocks.getFirst());
+            }
         }
 
-        while (this.blocks.size() >= this.maxBlocks) {
-            this.removeBlock(blocks.getFirst());
-        }
-
-        List<Entity> entityList = Geometry.getNearbyEntities(this.getLocation(), 4);
-        if (entityList != null && !entityList.isEmpty()) {
-            for (Entity e : entityList) {
-                if (!e.hasMetadata("tornado")) {
-                    this.entities.add(new VortexEntity(this, e, false, VortexEntity.VortexEntityType.ENTITY));
+        if (this.pickupEntities) {
+            List<Entity> entityList = Geometry.getNearbyEntities(this.getLocation(), 4);
+            if (entityList != null && !entityList.isEmpty()) {
+                for (Entity e : entityList) {
+                    if (!e.hasMetadata("tornado")) {
+                        this.entities.add(new VortexEntity(this, e, false, VortexEntity.VortexEntityType.ENTITY));
+                    }
                 }
             }
         }

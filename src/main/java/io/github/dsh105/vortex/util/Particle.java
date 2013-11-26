@@ -38,8 +38,8 @@ public enum Particle {
     SPELL_AMBIENT("mobSpellAmbient", 1f, 100),
     VOID("townaura", 1f, 100),
 
-    WHIRLY_SMOKE("largesmoke", 0F, 10),
-    WHIRLY_CLOUD("explode", 0F, 1),
+    WHIRLY_SMOKE("largesmoke", 0.05F, 2),
+    WHIRLY_CLOUD("explode", 0.05F, 2),
 
     BLOCK_BREAK("tilecrack", 0F, 100),
     ;

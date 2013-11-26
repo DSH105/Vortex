@@ -2,6 +2,7 @@ package io.github.dsh105.vortex.commands;
 
 import io.github.dsh105.vortex.environment.tornado.Tornado;
 import io.github.dsh105.vortex.environment.volcano.Volcano;
+import io.github.dsh105.vortex.environment.whirly.Whirly;
 import io.github.dsh105.vortex.util.Geometry;
 import io.github.dsh105.vortex.util.Lang;
 import io.github.dsh105.vortex.util.StringUtil;
@@ -32,7 +33,7 @@ public class VortexCommand implements CommandExecutor {
                     return true;
                 } else if (args[0].equalsIgnoreCase("whirly")) {
                     Player p = (Player) sender;
-                    new Tornado(p.getLocation(), new Vector(Geometry.generateRandomFloat(0F, 1F), 0, Geometry.generateRandomFloat(0F, 1F)), 0.15F, 20*10, 6, 12);
+                    new Whirly(p.getLocation(), 0.15F, 20*40, 8);
                     return true;
                 } else if (args[0].equalsIgnoreCase("volcano")) {
                     Player p = (Player) sender;
