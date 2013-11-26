@@ -31,7 +31,7 @@ public class Earthquake extends Environment {
         List<Entity> entityList = Geometry.getNearbyEntities(this.getHypocentre(), this.shakeRadius);
         if (entityList != null && !entityList.isEmpty()) {
             for (Entity e : entityList) {
-                this.entities.add(new ShakeEntity(this, e));
+                this.entities.add(new ShakeEntity(this, e, 1, true));
             }
         }
 
