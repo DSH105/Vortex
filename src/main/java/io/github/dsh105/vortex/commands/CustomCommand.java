@@ -1,5 +1,6 @@
 package io.github.dsh105.vortex.commands;
 
+import io.github.dsh105.vortex.VortexPlugin;
 import org.apache.commons.lang.Validate;
 import org.bukkit.command.*;
 
@@ -54,7 +55,7 @@ public class CustomCommand extends Command {
             for (String arg : args) {
                 message.append(arg).append(' ');
             }
-            message.deleteCharAt(message.length() - 1).append("' in plugin ").append(io.github.dsh105.vortex.VortexPlugin.getInstance().getDescription().getFullName());
+            message.deleteCharAt(message.length() - 1).append("' in plugin ").append(VortexPlugin.getInstance().getDescription().getFullName());
             throw new CommandException(message.toString(), ex);
         }
 

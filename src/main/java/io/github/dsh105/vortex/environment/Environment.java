@@ -1,5 +1,7 @@
 package io.github.dsh105.vortex.environment;
 
+import io.github.dsh105.vortex.VortexPlugin;
+
 public abstract class Environment {
 
     private EnvironmentTick liveTicker;
@@ -16,7 +18,7 @@ public abstract class Environment {
     }
 
     public void start() {
-        this.liveTicker.runTaskTimer(io.github.dsh105.vortex.VortexPlugin.getInstance(), 1L, 1L);
+        this.liveTicker.runTaskTimer(VortexPlugin.getInstance(), 1L, 1L);
     }
 
     public void end() {

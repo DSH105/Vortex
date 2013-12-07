@@ -1,5 +1,6 @@
 package io.github.dsh105.vortex.commands;
 
+import io.github.dsh105.vortex.VortexPlugin;
 import io.github.dsh105.vortex.environment.tornado.Tornado;
 import io.github.dsh105.vortex.environment.volcano.Volcano;
 import io.github.dsh105.vortex.environment.whirly.Whirly;
@@ -16,8 +17,8 @@ import org.bukkit.util.Vector;
 public class VortexCommand implements CommandExecutor {
 
     public String label;
-    ChatColor c1 = io.github.dsh105.vortex.VortexPlugin.getInstance().primaryColour;
-    ChatColor c2 = io.github.dsh105.vortex.VortexPlugin.getInstance().secondaryColour;
+    ChatColor c1 = VortexPlugin.getInstance().primaryColour;
+    ChatColor c2 = VortexPlugin.getInstance().secondaryColour;
 
     public VortexCommand(String name) {
         this.label = name;

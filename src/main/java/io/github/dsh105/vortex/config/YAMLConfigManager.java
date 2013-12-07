@@ -1,13 +1,15 @@
 package io.github.dsh105.vortex.config;
 
+import io.github.dsh105.vortex.VortexPlugin;
+
 import java.io.*;
 import java.nio.charset.Charset;
 
 public class YAMLConfigManager {
 
-    private io.github.dsh105.vortex.VortexPlugin plugin;
+    private VortexPlugin plugin;
 
-    public YAMLConfigManager(io.github.dsh105.vortex.VortexPlugin plugin) {
+    public YAMLConfigManager(VortexPlugin plugin) {
         this.plugin = plugin;
     }
 

@@ -1,5 +1,6 @@
 package io.github.dsh105.vortex.util;
 
+import io.github.dsh105.vortex.VortexPlugin;
 import io.github.dsh105.vortex.logger.Logger;
 import org.bukkit.FireworkEffect;
 import org.bukkit.Location;
@@ -25,7 +26,7 @@ public class ReflectionUtil {
     }
 
     public static String getVersionString() {
-        io.github.dsh105.vortex.VortexPlugin plugin = io.github.dsh105.vortex.VortexPlugin.getInstance();
+        VortexPlugin plugin = VortexPlugin.getInstance();
         String packageName = plugin.getServer().getClass().getPackage().getName();
         String[] packageSplit = packageName.split("\\.");
         String version = packageSplit[packageSplit.length - 1];

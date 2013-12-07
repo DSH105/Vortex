@@ -1,5 +1,6 @@
 package io.github.dsh105.vortex.logger;
 
+import io.github.dsh105.vortex.VortexPlugin;
 import org.bukkit.ChatColor;
 
 import java.io.File;
@@ -15,13 +16,13 @@ public class Logger {
     private static boolean enabled = false;
 
     public static void initiate() {
-        io.github.dsh105.vortex.VortexPlugin plugin = io.github.dsh105.vortex.VortexPlugin.getInstance();
+        VortexPlugin plugin = VortexPlugin.getInstance();
         File folder = plugin.getDataFolder();
         if (!folder.exists()) {
             folder.mkdir();
         }
 
-        File log = new File(plugin.getDataFolder(), "Overcast.log");
+        File log = new File(plugin.getDataFolder(), "Vortex.log");
         if (!log.exists()) {
             try {
                 log.createNewFile();
@@ -88,7 +89,7 @@ public class Logger {
         }
 
         public String getPrefix() {
-            return io.github.dsh105.vortex.VortexPlugin.getInstance().prefix + " " + this.prefix;
+            return VortexPlugin.getInstance().prefix + " " + this.prefix;
         }
     }
 }

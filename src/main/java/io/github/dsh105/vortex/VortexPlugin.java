@@ -14,7 +14,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.v1_6_R3.CraftServer;
+import org.bukkit.craftbukkit.v1_7_R1.CraftServer;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -25,7 +25,7 @@ import java.util.Random;
 
 public class VortexPlugin extends JavaPlugin {
 
-    private static io.github.dsh105.vortex.VortexPlugin instance;
+    private static VortexPlugin instance;
     private static Random random;
 
     private YAMLConfigManager configManager;
@@ -62,9 +62,9 @@ public class VortexPlugin extends JavaPlugin {
         }*/
 
         configManager = new YAMLConfigManager(this);
-        String[] header = {"Overcast By DSH105", "---------------------",
+        String[] header = {"Vortex By DSH105", "---------------------",
                 "Configuration File",
-                "See the Overcast Wiki before editing this file"};
+                "See the Vortex Wiki before editing this file"};
         try {
             config = configManager.getNewConfig("config.yml", header);
             new ConfigOptions(config);
@@ -84,7 +84,7 @@ public class VortexPlugin extends JavaPlugin {
         }
 
         try {
-            langConfig = configManager.getNewConfig("language.yml", new String[] {"Overcast By DSH105", "---------------------", "Language Configuration File"});
+            langConfig = configManager.getNewConfig("language.yml", new String[] {"Vortex By DSH105", "---------------------", "Language Configuration File"});
             try {
                 for (Lang l : Lang.values()) {
                     String[] desc = l.getDescription();
@@ -138,7 +138,7 @@ public class VortexPlugin extends JavaPlugin {
 
     }
 
-    public static io.github.dsh105.vortex.VortexPlugin getInstance() {
+    public static VortexPlugin getInstance() {
         return instance;
     }
 
@@ -154,7 +154,7 @@ public class VortexPlugin extends JavaPlugin {
                     if (update) {
                         name = updater.getLatestName();
                         ConsoleLogger.log(ChatColor.GOLD + "An update is available: " + name);
-                        ConsoleLogger.log(ChatColor.GOLD + "Type /ocupdate to update.");
+                        ConsoleLogger.log(ChatColor.GOLD + "Type /vupdate to update.");
                         if (!updateChecked) {
                             updateChecked = true;
                         }
@@ -166,8 +166,8 @@ public class VortexPlugin extends JavaPlugin {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-        if (commandLabel.equalsIgnoreCase("ocupdate")) {
-            if (sender.hasPermission("overcast.update")) {
+        if (commandLabel.equalsIgnoreCase("vupdate")) {
+            if (sender.hasPermission("vortex.update")) {
                 if (updateChecked) {
                     @SuppressWarnings("unused")
                     Updater updater = new Updater(this, 67541, this.getFile(), Updater.UpdateType.NO_VERSION_CHECK, true);
@@ -198,6 +198,6 @@ public class VortexPlugin extends JavaPlugin {
     }
 
     public enum ConfigType {
-        MAIN, LANG;
+        MAIN, LANG
     }
 }

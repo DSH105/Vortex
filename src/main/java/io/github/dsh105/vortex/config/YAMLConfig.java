@@ -1,5 +1,6 @@
 package io.github.dsh105.vortex.config;
 
+import io.github.dsh105.vortex.VortexPlugin;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -15,9 +16,9 @@ public class YAMLConfig {
 
     private File file;
     private FileConfiguration config;
-    private io.github.dsh105.vortex.VortexPlugin plugin;
+    private VortexPlugin plugin;
 
-    public YAMLConfig(InputStream configStream, File configFile, int comments, io.github.dsh105.vortex.VortexPlugin plugin) {
+    public YAMLConfig(InputStream configStream, File configFile, int comments, VortexPlugin plugin) {
         this.comments = comments;
         this.manager = new YAMLConfigManager(plugin);
 

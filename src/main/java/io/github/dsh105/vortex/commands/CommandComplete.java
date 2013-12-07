@@ -1,5 +1,6 @@
 package io.github.dsh105.vortex.commands;
 
+import io.github.dsh105.vortex.VortexPlugin;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -13,7 +14,7 @@ public class CommandComplete implements TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
         List<String> list = new ArrayList<String>();
-        String cmdString = io.github.dsh105.vortex.VortexPlugin.getInstance().cmdString;
+        String cmdString = VortexPlugin.getInstance().cmdString;
         if (cmd.getName().equalsIgnoreCase(cmdString)) {
             String[] completions;
             if (args.length >= 2) {
@@ -33,7 +34,7 @@ public class CommandComplete implements TabCompleter {
     private String[] getCompletions(int i) {
         switch (i) {
             case 0:
-                return new String[]{io.github.dsh105.vortex.VortexPlugin.getInstance().cmdString};
+                return new String[]{VortexPlugin.getInstance().cmdString};
             case 1:
 
         }

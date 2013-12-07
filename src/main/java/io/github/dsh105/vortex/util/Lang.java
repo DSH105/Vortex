@@ -1,5 +1,6 @@
 package io.github.dsh105.vortex.util;
 
+import io.github.dsh105.vortex.VortexPlugin;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -7,7 +8,7 @@ import org.bukkit.entity.Player;
 public enum Lang {
 
     NO_PERMISSION("no_permission", "&e%perm% &apermission needed to do that."),
-    COMMAND_ERROR("cmd_error", "&aError for input string: &e%cmd%&a. Use &e/" + io.github.dsh105.vortex.VortexPlugin.getInstance().cmdString + " help &afor help."),
+    COMMAND_ERROR("cmd_error", "&aError for input string: &e%cmd%&a. Use &e/" + VortexPlugin.getInstance().cmdString + " help &afor help."),
     HELP_INDEX_TOO_BIG("help_index_too_big", "&aPage &e%index% &adoes not exist."),
     IN_GAME_ONLY("in_game_only", "&ePlease log in to do that."),
     STRING_ERROR("string_error", "&aError parsing String: [&e%string%&a]. Please revise command arguments."),
@@ -35,27 +36,27 @@ public enum Lang {
 
     public static void sendTo(CommandSender sender, String msg) {
         if (msg != null || !msg.equalsIgnoreCase("") && !msg.equalsIgnoreCase(" ") && !msg.equalsIgnoreCase("none")) {
-            sender.sendMessage(io.github.dsh105.vortex.VortexPlugin.getInstance().prefix + msg);
+            sender.sendMessage(VortexPlugin.getInstance().prefix + msg);
         }
     }
 
     public static void sendTo(Player p, String msg) {
         if (msg != null && !msg.equalsIgnoreCase("") && !msg.equalsIgnoreCase(" ") && !(msg.equalsIgnoreCase("none"))) {
-            p.sendMessage(io.github.dsh105.vortex.VortexPlugin.getInstance().prefix + msg);
+            p.sendMessage(VortexPlugin.getInstance().prefix + msg);
         }
     }
 
     @Override
     public String toString() {
-        String result = io.github.dsh105.vortex.VortexPlugin.getInstance().getConfig(io.github.dsh105.vortex.VortexPlugin.ConfigType.LANG).getString(this.path, this.def);
+        String result = VortexPlugin.getInstance().getConfig(VortexPlugin.ConfigType.LANG).getString(this.path, this.def);
         if (result != null && result != "" && result != "none") {
-            return ChatColor.translateAlternateColorCodes('&', io.github.dsh105.vortex.VortexPlugin.getInstance().getConfig(io.github.dsh105.vortex.VortexPlugin.ConfigType.LANG).getString(this.path, this.def));
+            return ChatColor.translateAlternateColorCodes('&', VortexPlugin.getInstance().getConfig(VortexPlugin.ConfigType.LANG).getString(this.path, this.def));
         } else {
             return "";
         }
     }
 
     public String toString_() {
-        return io.github.dsh105.vortex.VortexPlugin.getInstance().getConfig(io.github.dsh105.vortex.VortexPlugin.ConfigType.LANG).getString(this.path, this.def);
+        return VortexPlugin.getInstance().getConfig(VortexPlugin.ConfigType.LANG).getString(this.path, this.def);
     }
 }

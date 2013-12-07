@@ -34,7 +34,7 @@ public enum Permission {
     }
 
     public boolean hasPerm(Player player, boolean sendMessage) {
-        boolean hasRequiredPerm = this.requiredPerm.equalsIgnoreCase("") ? true : player.hasPermission(this.requiredPerm);
+        boolean hasRequiredPerm = this.requiredPerm.equalsIgnoreCase("") || player.hasPermission(this.requiredPerm);
         if (!(player.hasPermission(this.perm) && hasRequiredPerm)) {
             for (String s : this.hierarchy) {
                 if (player.hasPermission(s)) {

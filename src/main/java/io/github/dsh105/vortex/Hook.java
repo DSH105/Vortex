@@ -7,7 +7,7 @@ import org.bukkit.plugin.Plugin;
 public class Hook {
 
     public static WorldGuardPlugin getWorldGuard() {
-        Plugin plugin = io.github.dsh105.vortex.VortexPlugin.getInstance().getServer().getPluginManager().getPlugin("WorldGuard");
+        Plugin plugin = VortexPlugin.getInstance().getServer().getPluginManager().getPlugin("WorldGuard");
         if (plugin == null || !(plugin instanceof WorldGuardPlugin)) {
             return null;
         }

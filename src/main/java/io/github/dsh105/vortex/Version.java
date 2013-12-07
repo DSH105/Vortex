@@ -34,7 +34,7 @@ public class Version {
                 NMS_PACKAGE = a.getValue("NMS-Package");
             }
         } catch (Exception e) {
-            Logger.log(Logger.LogLevel.SEVERE, "Failed to obtain EchoPet and Minecraft Server version.", e, true);
+            Logger.log(Logger.LogLevel.SEVERE, "Failed to obtain Minecraft Server version.", e, true);
         }
     }
 

@@ -5,7 +5,5 @@ description: Harness the Destructive Power of Nature
 website: ${project.url}
 main: ${main.class}
 commands:
-    ocupdate:
-        description: Update the Overcast plugin.
-    overcast:
-        description: Harness the Power of Nature
+    vupdate:
+        description: Update the Vortex plugin.
