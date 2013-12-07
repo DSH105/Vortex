@@ -1,9 +1,7 @@
 package io.github.dsh105.vortex.util;
 
-import io.github.dsh105.vortex.util.ReflectionUtil;
-import net.minecraft.server.v1_6_R3.Packet63WorldParticles;
+import net.minecraft.server.v1_7_R1.PacketPlayOutWorldParticles;
 import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
@@ -21,10 +19,11 @@ public enum Particle {
     SPLASH("splash", 1f, 40),
     PORTAL("portal", 1f, 100),
 
+    EXPLOSION("largeexplode", 0.1f, 1),
+    HUGE_EXPLOSION("hugeexplosion", 0.1f, 1),
     CLOUD("explode", 0.1f, 10),
     CRITICAL("crit", 0.1f, 100),
     MAGIC_CRITIAL("magicCrit", 0.1f, 100),
-    MAGIC_CRITIAL_SMALL("magicCrit", 0.01f, 20),
     ANGRY_VILLAGER("angryVillager", 0f, 20),
     SPARKLE("happyVillager", 0f, 20),
     WATER_DRIP("dripWater", 0f, 100),
@@ -38,19 +37,14 @@ public enum Particle {
     SPELL_AMBIENT("mobSpellAmbient", 1f, 100),
     VOID("townaura", 1f, 100),
 
-    WHIRLY_SMOKE("largesmoke", 0.05F, 2),
-    WHIRLY_CLOUD("explode", 0.05F, 2),
+    WHIRLY_CLOUD("explode", 0f, 1),
 
-    BLOCK_BREAK("tilecrack", 0F, 100),
+    BLOCK_BREAK("blockcrack", 0.1F, 100),
+    ICON_CRACK("blockdust", 0.1F, 100),
+    BLOCK_DUST("blockdust", 0.1F, 100),
     ;
 
-	/*
-     * Unused effects
-	 * FIREWORK_SPARK("fireworksSpark", 0f, 50, "firework_spark"),
-	 * MOB_SPELL("mobSpell", 2f, 50, "" "mob_spell"),
-	 * SPELL("spell", 1f, 50, "" "spell"),
-	 * INSTANT_SPELL("instantSpell", 1f, 50, "instant_spell")
-	 */
+    private static Random RANDOM = new Random();
 
     private String particleName;
     private float defaultSpeed;
@@ -74,115 +68,47 @@ public enum Particle {
         return this.defaultSpeed;
     }
 
-    public void sendTo(World world, double x, double y, double z) throws Exception {
-        Object packet = Class.forName(
-                "net.minecraft.server." + ReflectionUtil.getVersionString()
-                        + ".Packet63WorldParticles").getConstructors()[0].newInstance();
-        ReflectionUtil.setValue(packet, "a", particleName);
-        ReflectionUtil.setValue(packet, "b", (float) x);
-        ReflectionUtil.setValue(packet, "c", (float) y);
-        ReflectionUtil.setValue(packet, "d", (float) z);
-        ReflectionUtil.setValue(packet, "e", new Random().nextFloat());
-        ReflectionUtil.setValue(packet, "f", new Random().nextFloat());
-        ReflectionUtil.setValue(packet, "g", new Random().nextFloat());
-        ReflectionUtil.setValue(packet, "h", defaultSpeed);
-        ReflectionUtil.setValue(packet, "i", particleAmount);
-        ReflectionUtil.sendPacket(new Location(world, x, y, z), packet);
-    }
-
-    public void sendTo(World world, double x, double y, double z, Vector v) throws Exception {
-        Object packet = Class.forName(
-                "net.minecraft.server." + ReflectionUtil.getVersionString()
-                        + ".Packet63WorldParticles").getConstructors()[0].newInstance();
-        ReflectionUtil.setValue(packet, "a", particleName);
-        ReflectionUtil.setValue(packet, "b", (float) x);
-        ReflectionUtil.setValue(packet, "c", (float) y);
-        ReflectionUtil.setValue(packet, "d", (float) z);
-        ReflectionUtil.setValue(packet, "e", v.getX());
-        ReflectionUtil.setValue(packet, "f", v.getY());
-        ReflectionUtil.setValue(packet, "g", v.getZ());
-        ReflectionUtil.setValue(packet, "h", defaultSpeed);
-        ReflectionUtil.setValue(packet, "i", particleAmount);
-        ReflectionUtil.sendPacket(new Location(world, x, y, z), packet);
+    public static PacketPlayOutWorldParticles createPacket(String particleName, Location location, Vector v, float defaultSpeed, int particleAmount) {
+        return new PacketPlayOutWorldParticles(
+                particleName,
+                (float) location.getX(),
+                (float) location.getY(),
+                (float) location.getZ(),
+                (float) v.getX(),
+                (float) v.getY(),
+                (float) v.getZ(),
+                defaultSpeed, particleAmount);
     }
 
     public void sendTo(Location l) throws Exception {
-        this.sendTo(l.getWorld(), l.getX(), l.getY(), l.getZ());
+        ReflectionUtil.sendPacket(l, this.createPacket(this.particleName, l, new Vector(RANDOM.nextFloat(), RANDOM.nextFloat(), RANDOM.nextFloat()), this.defaultSpeed, this.particleAmount));
     }
 
     public void sendTo(Location l, Vector v) throws Exception {
-        this.sendTo(l.getWorld(), l.getX(), l.getY(), l.getZ(), v);
+        ReflectionUtil.sendPacket(l, this.createPacket(this.particleName, l, v, this.defaultSpeed, this.particleAmount));
     }
 
     public void sendToPlayer(Location l, Player p) throws Exception {
-        Object packet = Class.forName(
-                "net.minecraft.server." + ReflectionUtil.getVersionString()
-                        + ".Packet63WorldParticles").getConstructors()[0].newInstance();
-        ReflectionUtil.setValue(packet, "a", particleName);
-        ReflectionUtil.setValue(packet, "b", (float) l.getX());
-        ReflectionUtil.setValue(packet, "c", (float) l.getY());
-        ReflectionUtil.setValue(packet, "d", (float) l.getZ());
-        ReflectionUtil.setValue(packet, "e", new Random().nextFloat());
-        ReflectionUtil.setValue(packet, "f", new Random().nextFloat());
-        ReflectionUtil.setValue(packet, "g", new Random().nextFloat());
-        ReflectionUtil.setValue(packet, "h", defaultSpeed);
-        ReflectionUtil.setValue(packet, "i", particleAmount);
-        ReflectionUtil.sendPacket(p, packet);
+        ReflectionUtil.sendPacket(p, this.createPacket(this.particleName, l, new Vector(RANDOM.nextFloat(), RANDOM.nextFloat(), RANDOM.nextFloat()), this.defaultSpeed, this.particleAmount));
     }
 
     public void sendToPlayer(Location l, Player p, Vector v) throws Exception {
-        Object packet = Class.forName(
-                "net.minecraft.server." + ReflectionUtil.getVersionString()
-                        + ".Packet63WorldParticles").getConstructors()[0].newInstance();
-        ReflectionUtil.setValue(packet, "a", particleName);
-        ReflectionUtil.setValue(packet, "b", (float) l.getX());
-        ReflectionUtil.setValue(packet, "c", (float) l.getY());
-        ReflectionUtil.setValue(packet, "d", (float) l.getZ());
-        ReflectionUtil.setValue(packet, "e", v.getX());
-        ReflectionUtil.setValue(packet, "f", v.getY());
-        ReflectionUtil.setValue(packet, "g", v.getZ());
-        ReflectionUtil.setValue(packet, "h", defaultSpeed);
-        ReflectionUtil.setValue(packet, "i", particleAmount);
-        ReflectionUtil.sendPacket(p, packet);
+        ReflectionUtil.sendPacket(p, this.createPacket(this.particleName, l, v, this.defaultSpeed, this.particleAmount));
     }
 
-    public void sendBlockBreak(World world, double x, double y, double z, int blockId, int blockMeta) throws Exception {
-        Object packet = Class.forName(
-                "net.minecraft.server." + ReflectionUtil.getVersionString()
-                        + ".Packet63WorldParticles").getConstructors()[0].newInstance();
-        ReflectionUtil.setValue(packet, "a", particleName + "_" + blockId + "_" + blockMeta);
-        ReflectionUtil.setValue(packet, "b", (float) x);
-        ReflectionUtil.setValue(packet, "c", (float) y);
-        ReflectionUtil.setValue(packet, "d", (float) z);
-        ReflectionUtil.setValue(packet, "e", new Random().nextFloat());
-        ReflectionUtil.setValue(packet, "f", new Random().nextFloat());
-        ReflectionUtil.setValue(packet, "g", new Random().nextFloat());
-        ReflectionUtil.setValue(packet, "h", defaultSpeed);
-        ReflectionUtil.setValue(packet, "i", particleAmount);
-        ReflectionUtil.sendPacket(new Location(world, x, y, z), packet);
+    public void sendDataParticle(Location l, int blockId, int blockMeta) throws Exception {
+        ReflectionUtil.sendPacket(l, this.createPacket(this.particleName + "_" + blockId + "_" + blockMeta, l, new Vector(RANDOM.nextFloat(), RANDOM.nextFloat(), RANDOM.nextFloat()), this.defaultSpeed, this.particleAmount));
     }
 
-    public void sendBlockBreak(World world, double x, double y, double z, int blockId, int blockMeta, Vector v) throws Exception {
-        Object packet = Class.forName(
-                "net.minecraft.server." + ReflectionUtil.getVersionString()
-                        + ".Packet63WorldParticles").getConstructors()[0].newInstance();
-        ReflectionUtil.setValue(packet, "a", particleName + "_" + blockId + "_" + blockMeta);
-        ReflectionUtil.setValue(packet, "b", (float) x);
-        ReflectionUtil.setValue(packet, "c", (float) y);
-        ReflectionUtil.setValue(packet, "d", (float) z);
-        ReflectionUtil.setValue(packet, "e", v.getX());
-        ReflectionUtil.setValue(packet, "f", v.getY());
-        ReflectionUtil.setValue(packet, "g", v.getZ());
-        ReflectionUtil.setValue(packet, "h", defaultSpeed);
-        ReflectionUtil.setValue(packet, "i", particleAmount);
-        ReflectionUtil.sendPacket(new Location(world, x, y, z), packet);
+    public void sendDataParticle(Location l, Vector v, int blockId, int blockMeta) throws Exception {
+        ReflectionUtil.sendPacket(l, this.createPacket(this.particleName + "_" + blockId + "_" + blockMeta, l, v, this.defaultSpeed, this.particleAmount));
     }
 
-    public void sendBlockBreak(Location l, int blockId, int blockMeta) throws Exception {
-        this.sendBlockBreak(l.getWorld(), l.getX(), l.getY(), l.getZ(), blockId, blockMeta);
+    public void sendDataParticleToPlayer(Location l, Player p, int blockId, int blockMeta) throws Exception {
+        ReflectionUtil.sendPacket(p, this.createPacket(this.particleName + "_" + blockId + "_" + blockMeta, l, new Vector(RANDOM.nextFloat(), RANDOM.nextFloat(), RANDOM.nextFloat()), this.defaultSpeed, this.particleAmount));
     }
 
-    public void sendBlockBreak(Location l, int blockId, int blockMeta, Vector v) throws Exception {
-        this.sendBlockBreak(l.getWorld(), l.getX(), l.getY(), l.getZ(), blockId, blockMeta, v);
+    public void sendDataParticleToPlayer(Location l, Player p, Vector v, int blockId, int blockMeta) throws Exception {
+        ReflectionUtil.sendPacket(p, this.createPacket(this.particleName + "_" + blockId + "_" + blockMeta, l, v, this.defaultSpeed, this.particleAmount));
     }
 }
