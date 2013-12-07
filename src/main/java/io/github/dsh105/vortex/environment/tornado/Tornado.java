@@ -1,5 +1,6 @@
 package io.github.dsh105.vortex.environment.tornado;
 
+import io.github.dsh105.vortex.VortexPlugin;
 import io.github.dsh105.vortex.environment.Environment;
 import io.github.dsh105.vortex.logger.Logger;
 import io.github.dsh105.vortex.util.BlockData;
@@ -36,6 +37,7 @@ public class Tornado extends Environment {
     public Tornado(Location location, Vector direction, float speed, int liveTime, int height, int maximumBlocks) {
         super(liveTime);
         this.location = location;
+        this.location.setY(location.getWorld().getHighestBlockYAt(location));
         this.direction = direction;
         this.speed = speed;
         this.height = height;
@@ -50,16 +52,17 @@ public class Tornado extends Environment {
     @Override
     public void onLive() {
         super.onLive();
+
         if (this.direction != null) {
             this.location.add(this.direction);
         }
 
         if (this.pickupBlocks) {
-            Location l = this.getLocation().clone();
-            l.setY(l.getY() - 5);
-            List<Location> list = Geometry.circle(l, 5, this.maxY / 2, false, true, false);
+            Location l1 = this.getLocation().clone();
+            l1.setY(l1.getY() - 5.0D);
+            List<Location> list = Geometry.circle(l1, 5, this.maxY / 2, false, true, false);
             if (!list.isEmpty()) {
-                Block b = list.get(io.github.dsh105.vortex.VortexPlugin.r().nextInt(list.size())).getBlock();
+                Block b = list.get(VortexPlugin.r().nextInt(list.size())).getBlock();
                 VortexEntity fb = new VortexEntity(this, this.getWorld().spawnFallingBlock(b.getLocation(), b.getType(), b.getData()), false, VortexEntity.VortexEntityType.BLOCK);
                 this.lastBlock = new BlockData(b.getType(), b.getData());
                 b.setType(Material.AIR);

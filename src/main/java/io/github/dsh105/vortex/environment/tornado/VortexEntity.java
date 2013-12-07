@@ -1,5 +1,7 @@
 package io.github.dsh105.vortex.environment.tornado;
 
+import io.github.dsh105.vortex.VortexPlugin;
+import io.github.dsh105.vortex.logger.ConsoleLogger;
 import io.github.dsh105.vortex.logger.Logger;
 import io.github.dsh105.vortex.util.Particle;
 import org.bukkit.Material;
@@ -28,17 +30,16 @@ public class VortexEntity extends BukkitRunnable {
         this.entity = entity;
         this.remove = remove;
         this.entityType = type;
-        this.entity.setMetadata("tornado", new FixedMetadataValue(io.github.dsh105.vortex.VortexPlugin.getInstance(), "true"));
+        this.entity.setMetadata("tornado", new FixedMetadataValue(VortexPlugin.getInstance(), "true"));
         if (entity instanceof FallingBlock) {
             ((FallingBlock) entity).setDropItem(false);
         }
-        this.runTaskTimer(io.github.dsh105.vortex.VortexPlugin.getInstance(), 1L, 1L);
+        this.runTaskTimer(VortexPlugin.getInstance(), 1L, 1L);
     }
 
     @Override
     public void run() {
-        age++;
-        if (this.entity.getLocation().getY() >= this.tornado.maxY) {
+        if (++this.age >= 20*6 || this.entity.getLocation().getY() >= this.tornado.maxY) {
             if (this.entityType == VortexEntityType.BLOCK) {
                 this.tornado.removeBlock(this);
             }
@@ -49,23 +50,6 @@ public class VortexEntity extends BukkitRunnable {
         double d0 = Math.sin(this.shiftV < 1.0F ? this.shiftV += 0.05F : this.shiftV);
         float f1 = this.shiftH += 0.8F;
         this.entity.setVelocity(this.lastVelocity = new Vector(d0 * Math.cos(f1), 0.5D, Math.sin(f1) * d0));
-
-        if (io.github.dsh105.vortex.VortexPlugin.r().nextInt(3) == 0 && !this.entity.isDead()) {
-            if (this.entityType.equals(VortexEntityType.BLOCK)) {
-                /*try {
-                    Particle.CLOUD.sendTo(this.entity.getLocation());
-                } catch (Exception e) {
-                    Logger.log(Logger.LogLevel.WARNING, "Failed to generate Tornado Cloud particle.", e, true);
-                }*/
-            } else if (this.entityType.equals(VortexEntityType.ITEM)) {
-                Particle p = io.github.dsh105.vortex.VortexPlugin.r().nextInt(3) == 0 ? Particle.WHIRLY_SMOKE : Particle.WHIRLY_CLOUD;
-                try {
-                    p.sendTo(this.entity.getLocation(), new Vector(0, 0, 0));
-                } catch (Exception e) {
-                    Logger.log(Logger.LogLevel.WARNING, "Failed to generate Tornado Cloud particle.", e, true);
-                }
-            }
-        }
 
         if (this.entityType == VortexEntityType.BLOCK) {
             Block b = this.entity.getLocation().add(this.lastVelocity).getBlock();
@@ -80,10 +64,10 @@ public class VortexEntity extends BukkitRunnable {
     @Override
     public synchronized void cancel() throws IllegalStateException {
         super.cancel();
-        this.entity.removeMetadata("tornado", io.github.dsh105.vortex.VortexPlugin.getInstance());
+        this.entity.removeMetadata("tornado", VortexPlugin.getInstance());
     }
 
     public enum VortexEntityType {
-        BLOCK, ENTITY, ITEM;
+        BLOCK, ENTITY
     }
 }

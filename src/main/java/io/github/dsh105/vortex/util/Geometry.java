@@ -44,7 +44,7 @@ public class Geometry {
                 entities.add(entity);
             }
         }
-        return entities.isEmpty() ? null : entities;
+        return entities;
     }
 
     public static boolean isInBorder(Location center, Location l, int range) {

@@ -10,8 +10,10 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
+import org.bukkit.entity.FallingBlock;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
 
@@ -39,7 +41,7 @@ public class BuildTask extends BukkitRunnable {
     public void run() {
         // Are we done yet?
         if (this.builtLayers > this.height) {
-            for (Location location : Geometry.circle(this.volcano.getLocation(), 2, this.builtLayers, false, false, true)) {
+            for (Location location : Geometry.circle(this.buildLocation, 2, this.buildLocation.getWorld().getHighestBlockAt(this.buildLocation).getLocation().getBlockY() - this.buildLocation.getBlockY(), false, false, true)) {
                 location.getBlock().setType(Material.LAVA);
             }
             this.cancel();
@@ -71,13 +73,17 @@ public class BuildTask extends BukkitRunnable {
                 Block block = location.getBlock();
                 block.setType(m);
                 block.setMetadata("volcano-" + this.volcano.id, new FixedMetadataValue(VortexPlugin.getInstance(), "true"));
-                /*try {
-                    Particle.BLOCK_BREAK.sendBlockBreak(location, m.getId(), b.getData());
-                } catch (Exception e) {
-                    Logger.log(Logger.LogLevel.WARNING, "Failed to generate Volcano Block Break particle.", e, true);
-                }*/
             }
         }
+        /*for (Location location : Geometry.circle(this.buildLocation, this.buildRadius + 3, 1, false, false, false)) {
+            Block b = location.getBlock();
+            if (!b.hasMetadata("volcano-" + this.volcano.id)) {
+                FallingBlock fb = location.getWorld().spawnFallingBlock(location, b.getType(), b.getData());
+                fb.setDropItem(false);
+                b.setType(Material.AIR);
+                fb.setVelocity(new Vector(0, 0.3, 0));
+            }
+        }*/
         this.buildLocation.getWorld().playSound(this.buildLocation, Sound.ENDERDRAGON_HIT, 10F, 1F);
 
         this.buildRadius++;

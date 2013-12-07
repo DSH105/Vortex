@@ -1,6 +1,7 @@
 package io.github.dsh105.vortex.commands;
 
 import io.github.dsh105.vortex.VortexPlugin;
+import io.github.dsh105.vortex.environment.earthquake.ShakeEntity;
 import io.github.dsh105.vortex.environment.tornado.Tornado;
 import io.github.dsh105.vortex.environment.volcano.Volcano;
 import io.github.dsh105.vortex.environment.whirly.Whirly;
@@ -11,8 +12,11 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
+
+import java.util.List;
 
 public class VortexCommand implements CommandExecutor {
 
@@ -30,15 +34,26 @@ public class VortexCommand implements CommandExecutor {
             if (args.length == 1) {
                 if (args[0].equalsIgnoreCase("tornado")) {
                     Player p = (Player) sender;
-                    new Tornado(p.getLocation(), new Vector(Geometry.generateRandomFloat(0F, 1F), 0, Geometry.generateRandomFloat(0F, 1F)), 0.15F, 20*20, 25, 50);
+                    new Tornado(p.getLocation(), new Vector(Geometry.generateRandomFloat(0F, 1F), 0, Geometry.generateRandomFloat(0F, 1F)), 0.15F, 20*20, 25, 80);
                     return true;
                 } else if (args[0].equalsIgnoreCase("whirly")) {
                     Player p = (Player) sender;
-                    new Whirly(p.getLocation(), 0.15F, 20*40, 8);
+                    for (int i = 1; i <=5; i++) {
+                        new Whirly(p.getLocation(), 0.2F, 20*80, 4);
+                    }
                     return true;
                 } else if (args[0].equalsIgnoreCase("volcano")) {
                     Player p = (Player) sender;
                     new Volcano(p.getLocation(), 20, 20*60, true);
+                } else if (args[0].equalsIgnoreCase("shake")) {
+                    Player p = (Player) sender;
+                    List<Entity> entityList = Geometry.getNearbyEntities(p.getLocation(), 50);
+                    if (entityList != null && !entityList.isEmpty()) {
+                        for (Entity e : entityList) {
+                            new ShakeEntity(null, e, 20 / 2, true);
+                        }
+                    }
+                    return true;
                 }
             }
         }

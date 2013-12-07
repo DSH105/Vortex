@@ -16,24 +16,23 @@ public class WhirlyParticle extends BukkitRunnable {
 
     public Vector lastVelocity;
     public float shiftV = 0.0F;
-    public float shiftH = (float) (Math.random() * Math.PI * 2);
+    public float shiftH = (float) (Math.random() * Math.PI * 4);
 
     public WhirlyParticle(Whirly whirly, Location startLocation, Particle particle) {
         this.whirly = whirly;
-        this.location = startLocation;
+        this.location = startLocation.clone();
         this.particle = particle;
         this.runTaskTimer(VortexPlugin.getInstance(), 1L, 1L);
     }
 
     @Override
     public void run() {
-        ConsoleLogger.log("" + this.location.getY() + " : " + this.whirly.maxY);
-        if (this.location.getBlockY() >= this.whirly.maxY) {
+        if (((int) Math.floor(this.location.getY())) >= this.whirly.maxY) {
             this.cancel();
         }
 
         try {
-            this.particle.sendTo(this.location);
+            this.particle.sendTo(this.location, new Vector(0, 0, 0));
         } catch (Exception e) {
             Logger.log(Logger.LogLevel.WARNING, "Failed to generate Whirly Cloud particle.", e, true);
         }
