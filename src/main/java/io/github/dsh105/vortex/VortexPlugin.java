@@ -2,9 +2,11 @@ package io.github.dsh105.vortex;
 
 import io.github.dsh105.dshutils.Metrics;
 import io.github.dsh105.dshutils.Updater;
+import io.github.dsh105.dshutils.Version;
 import io.github.dsh105.dshutils.command.CustomCommand;
 import io.github.dsh105.dshutils.config.YAMLConfig;
 import io.github.dsh105.dshutils.config.YAMLConfigManager;
+import io.github.dsh105.dshutils.util.ReflectionUtil;
 import io.github.dsh105.vortex.commands.CommandComplete;
 import io.github.dsh105.vortex.commands.VortexCommand;
 import io.github.dsh105.vortex.config.ConfigOptions;
@@ -55,13 +57,13 @@ public class VortexPlugin extends JavaPlugin {
         ConsoleLogger.initiate(this);
         Logger.initiate(this, "Vortex", "[Vortex]");
 
-        /*if (!(Version.getNMSPackage()).equalsIgnoreCase(ReflectionUtil.getVersionString())) {
+        if (!(Version.getNMSPackage()).equalsIgnoreCase(ReflectionUtil.getVersionString(this))) {
             ConsoleLogger.log(Logger.LogLevel.NORMAL, this.secondaryColour + "VortexPlugin " + this.primaryColour
                     + this.getDescription().getVersion() + this.secondaryColour + " is only compatible with:");
             ConsoleLogger.log(Logger.LogLevel.NORMAL, this.primaryColour + "    " + Version.getMinecraftVersion() + "-" + Version.getCraftBukkitVersion() + ".");
             ConsoleLogger.log(Logger.LogLevel.NORMAL, this.secondaryColour + "Initialisation failed. Please update the plugin.");
             return;
-        }*/
+        }
 
         configManager = new YAMLConfigManager(this);
         String[] header = {"Vortex By DSH105", "---------------------",
