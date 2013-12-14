@@ -1,12 +1,10 @@
 package io.github.dsh105.vortex.environment.whirly;
 
+import io.github.dsh105.dshutils.Particle;
+import io.github.dsh105.dshutils.util.GeometryUtil;
 import io.github.dsh105.vortex.VortexPlugin;
 import io.github.dsh105.vortex.environment.Environment;
-import io.github.dsh105.vortex.environment.tornado.VortexEntity;
-import io.github.dsh105.vortex.logger.ConsoleLogger;
-import io.github.dsh105.vortex.logger.Logger;
-import io.github.dsh105.vortex.util.Geometry;
-import io.github.dsh105.vortex.util.Particle;
+import io.github.dsh105.dshutils.logger.Logger;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
@@ -29,7 +27,7 @@ public class Whirly extends Environment {
     public Whirly(Location location, float speed, int liveTime, int height) {
         super(liveTime);
         this.location = location;
-        this.direction = new Vector(Geometry.generateRandomFloat(), 0, Geometry.generateRandomFloat());
+        this.direction = new Vector(GeometryUtil.generateRandomFloat(), 0, GeometryUtil.generateRandomFloat());
         this.speed = speed;
         this.height = height;
         this.maxY = this.location.getBlockY() + height;
@@ -52,18 +50,18 @@ public class Whirly extends Environment {
         }
 
         if (++this.directionCount >= (80 - VortexPlugin.r().nextInt(40))) {
-            this.direction = new Vector(Geometry.generateRandomFloat(), Geometry.generateRandomFloat(), Geometry.generateRandomFloat());
+            this.direction = new Vector(GeometryUtil.generateRandomFloat(), GeometryUtil.generateRandomFloat(), GeometryUtil.generateRandomFloat());
             this.direction.normalize().multiply(this.speed);
             this.directionCount = 0;
         }
 
         try {
-            Particle.WHIRLY_CLOUD.sendTo(this.location, new Vector(0, 0, 0));
+            Particle.CLOUD.sendTo(this.location, new Vector(0, 0, 0), 0F, 1);
         } catch (Exception e) {
             Logger.log(Logger.LogLevel.WARNING, "Failed to generate Whirly Cloud particle.", e, true);
         }
 
-        List<Entity> entityList = Geometry.getNearbyEntities(this.location, 2);
+        List<Entity> entityList = GeometryUtil.getNearbyEntities(this.location, 2);
         if (entityList != null && !entityList.isEmpty()) {
             for (Entity e : entityList) {
                 e.setVelocity(new Vector(0, 0.4, 0));

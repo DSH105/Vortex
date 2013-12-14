@@ -2,7 +2,6 @@ package io.github.dsh105.vortex.environment.earthquake;
 
 import io.github.dsh105.vortex.VortexPlugin;
 import io.github.dsh105.vortex.environment.Environment;
-import io.github.dsh105.vortex.util.Geometry;
 import org.bukkit.entity.Entity;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;

@@ -1,7 +1,7 @@
-package io.github.dsh105.vortex.config.options;
+package io.github.dsh105.vortex.config;
 
-import io.github.dsh105.vortex.config.YAMLConfig;
-
+import io.github.dsh105.dshutils.config.YAMLConfig;
+import io.github.dsh105.dshutils.config.options.Options;
 
 public class ConfigOptions extends Options {
 
@@ -10,13 +10,10 @@ public class ConfigOptions extends Options {
     public ConfigOptions(YAMLConfig config) {
         super(config);
         instance = this;
-        this.setDefaults();
     }
 
     @Override
     public void setDefaults() {
-
-
 
         config.saveConfig();
     }

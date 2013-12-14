@@ -1,13 +1,11 @@
 package io.github.dsh105.vortex.environment.volcano;
 
+import io.github.dsh105.dshutils.Particle;
+import io.github.dsh105.dshutils.logger.Logger;
+import io.github.dsh105.dshutils.util.GeometryUtil;
 import io.github.dsh105.vortex.VortexPlugin;
 import io.github.dsh105.vortex.environment.Environment;
 import io.github.dsh105.vortex.environment.earthquake.ShakeEntity;
-import io.github.dsh105.vortex.environment.tornado.VortexEntity;
-import io.github.dsh105.vortex.logger.ConsoleLogger;
-import io.github.dsh105.vortex.logger.Logger;
-import io.github.dsh105.vortex.util.Geometry;
-import io.github.dsh105.vortex.util.Particle;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -47,7 +45,7 @@ public class Volcano extends Environment {
         this.maxY = this.location.getBlockY() + height;
         if (build) {
             new BuildTask(this);
-            List<Entity> entityList = Geometry.getNearbyEntities(this.getLocation(), 50);
+            List<Entity> entityList = GeometryUtil.getNearbyEntities(this.getLocation(), 50);
             if (entityList != null && !entityList.isEmpty()) {
                 for (Entity e : entityList) {
                     this.entities.add(new ShakeEntity(this, e, this.height * 4, false));
@@ -87,7 +85,7 @@ public class Volcano extends Environment {
         if (!this.isBuilding && ++this.lavaCount >= 20 && VortexPlugin.r().nextBoolean()) {
             this.lavaCount = 0;
             FallingBlock fb = this.getLocation().getWorld().spawnFallingBlock(this.getSpewLocation(), Material.LAVA, (byte) 0);
-            fb.setVelocity(new Vector(Geometry.generateRandomFloat(), 0.7F, Geometry.generateRandomFloat(0.02F, 0.15F)));
+            fb.setVelocity(new Vector(GeometryUtil.generateRandomFloat(), 0.7F, GeometryUtil.generateRandomFloat(0.02F, 0.15F)));
             fb.setDropItem(false);
             try {
                 Particle.HUGE_EXPLOSION.sendTo(fb.getLocation());

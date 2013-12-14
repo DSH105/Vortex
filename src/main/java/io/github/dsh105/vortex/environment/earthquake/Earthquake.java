@@ -1,7 +1,7 @@
 package io.github.dsh105.vortex.environment.earthquake;
 
+import io.github.dsh105.dshutils.util.GeometryUtil;
 import io.github.dsh105.vortex.environment.Environment;
-import io.github.dsh105.vortex.util.Geometry;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 
@@ -28,7 +28,7 @@ public class Earthquake extends Environment {
     @Override
     public void onLive() {
         super.onLive();
-        List<Entity> entityList = Geometry.getNearbyEntities(this.getHypocentre(), this.shakeRadius);
+        List<Entity> entityList = GeometryUtil.getNearbyEntities(this.getHypocentre(), this.shakeRadius);
         if (entityList != null && !entityList.isEmpty()) {
             for (Entity e : entityList) {
                 this.entities.add(new ShakeEntity(this, e, -1, true));

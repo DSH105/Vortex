@@ -1,11 +1,9 @@
 package io.github.dsh105.vortex.environment.tornado;
 
+import io.github.dsh105.dshutils.util.GeometryUtil;
 import io.github.dsh105.vortex.VortexPlugin;
 import io.github.dsh105.vortex.environment.Environment;
-import io.github.dsh105.vortex.logger.Logger;
 import io.github.dsh105.vortex.util.BlockData;
-import io.github.dsh105.vortex.util.Geometry;
-import io.github.dsh105.vortex.util.Particle;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -60,7 +58,7 @@ public class Tornado extends Environment {
         if (this.pickupBlocks) {
             Location l1 = this.getLocation().clone();
             l1.setY(l1.getY() - 5.0D);
-            List<Location> list = Geometry.circle(l1, 5, this.maxY / 2, false, true, false);
+            List<Location> list = GeometryUtil.circle(l1, 5, this.maxY / 2, false, true, false);
             if (!list.isEmpty()) {
                 Block b = list.get(VortexPlugin.r().nextInt(list.size())).getBlock();
                 VortexEntity fb = new VortexEntity(this, this.getWorld().spawnFallingBlock(b.getLocation(), b.getType(), b.getData()), false, VortexEntity.VortexEntityType.BLOCK);
@@ -78,7 +76,7 @@ public class Tornado extends Environment {
         }
 
         if (this.pickupEntities) {
-            List<Entity> entityList = Geometry.getNearbyEntities(this.getLocation(), 4);
+            List<Entity> entityList = GeometryUtil.getNearbyEntities(this.getLocation(), 4);
             if (entityList != null && !entityList.isEmpty()) {
                 for (Entity e : entityList) {
                     if (!e.hasMetadata("tornado")) {

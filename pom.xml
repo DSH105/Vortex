@@ -7,6 +7,7 @@
     <url>http://dev.bukkit.org/bukkit-plugins/vortex/</url>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <dshutils.version>1.0-SNAPSHOT</dshutils.version>
         <worldguard.version>5.8.1-SNAPSHOT</worldguard.version>
         <worldedit.version>5.5.8-SNAPSHOT</worldedit.version>
         <minecraft.version>1.7.2</minecraft.version>
@@ -26,6 +27,11 @@
             <artifactId>craftbukkit</artifactId>
             <version>${minecraft.version}-${craftbukkit.version}-SNAPSHOT</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.github.dsh105</groupId>
+            <artifactId>DSHUtils</artifactId>
+            <version>${dshutils.version}</version>
         </dependency>
         <dependency>
             <groupId>com.sk89q</groupId>
@@ -56,6 +62,10 @@
         <repository>
             <id>bukkit-repo</id>
             <url>http://repo.bukkit.org/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>hawk-repo</id>
+            <url>http://ci.hawkfalcon.com/plugin/repository/everything/</url>
         </repository>
         <repository>
             <id>sk89q-repo</id>
@@ -100,6 +110,33 @@
                         </manifestEntries>
                     </archive>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>2.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <minimizeJar>true</minimizeJar>
+                            <artifactSet>
+                                <includes>
+                                    <include>io.github.dsh105:DSHUtils</include>
+                                </includes>
+                            </artifactSet>
+                            <relocations>
+                                <relocation>
+                                    <pattern>io.github.dsh105.dshutils</pattern>
+                                    <shadedPattern>io.github.dsh105.vortex.libs.dshutils</shadedPattern>
+                                </relocation>
+                            </relocations>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

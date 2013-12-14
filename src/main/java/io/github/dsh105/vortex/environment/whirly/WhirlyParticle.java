@@ -1,9 +1,8 @@
 package io.github.dsh105.vortex.environment.whirly;
 
+import io.github.dsh105.dshutils.Particle;
 import io.github.dsh105.vortex.VortexPlugin;
-import io.github.dsh105.vortex.logger.ConsoleLogger;
-import io.github.dsh105.vortex.logger.Logger;
-import io.github.dsh105.vortex.util.Particle;
+import io.github.dsh105.dshutils.logger.Logger;
 import org.bukkit.Location;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
@@ -32,7 +31,7 @@ public class WhirlyParticle extends BukkitRunnable {
         }
 
         try {
-            this.particle.sendTo(this.location, new Vector(0, 0, 0));
+            this.particle.sendTo(this.location, new Vector(0, 0, 0), this.particle.getDefaultSpeed(), this.particle.getParticleAmount());
         } catch (Exception e) {
             Logger.log(Logger.LogLevel.WARNING, "Failed to generate Whirly Cloud particle.", e, true);
         }

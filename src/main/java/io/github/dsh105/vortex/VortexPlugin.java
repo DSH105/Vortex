@@ -1,13 +1,15 @@
 package io.github.dsh105.vortex;
 
+import io.github.dsh105.dshutils.Metrics;
+import io.github.dsh105.dshutils.Updater;
+import io.github.dsh105.dshutils.command.CustomCommand;
+import io.github.dsh105.dshutils.config.YAMLConfig;
+import io.github.dsh105.dshutils.config.YAMLConfigManager;
 import io.github.dsh105.vortex.commands.CommandComplete;
-import io.github.dsh105.vortex.commands.CustomCommand;
 import io.github.dsh105.vortex.commands.VortexCommand;
-import io.github.dsh105.vortex.config.YAMLConfig;
-import io.github.dsh105.vortex.config.YAMLConfigManager;
-import io.github.dsh105.vortex.config.options.ConfigOptions;
-import io.github.dsh105.vortex.logger.ConsoleLogger;
-import io.github.dsh105.vortex.logger.Logger;
+import io.github.dsh105.vortex.config.ConfigOptions;
+import io.github.dsh105.dshutils.logger.ConsoleLogger;
+import io.github.dsh105.dshutils.logger.Logger;
 import io.github.dsh105.vortex.util.Lang;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -50,8 +52,8 @@ public class VortexPlugin extends JavaPlugin {
         instance = this;
         random = new Random();
 
-        ConsoleLogger.initiate();
-        Logger.initiate();
+        ConsoleLogger.initiate(this);
+        Logger.initiate(this, "Vortex", "[Vortex]");
 
         /*if (!(Version.getNMSPackage()).equalsIgnoreCase(ReflectionUtil.getVersionString())) {
             ConsoleLogger.log(Logger.LogLevel.NORMAL, this.secondaryColour + "VortexPlugin " + this.primaryColour
@@ -102,6 +104,7 @@ public class VortexPlugin extends JavaPlugin {
         }
         langConfig.reloadConfig();
 
+        CustomCommand.initiate(this);
         try {
             if (Bukkit.getServer() instanceof CraftServer) {
                 final Field f = CraftServer.class.getDeclaredField("commandMap");

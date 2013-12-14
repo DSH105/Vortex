@@ -1,9 +1,6 @@
 package io.github.dsh105.vortex.environment.tornado;
 
 import io.github.dsh105.vortex.VortexPlugin;
-import io.github.dsh105.vortex.logger.ConsoleLogger;
-import io.github.dsh105.vortex.logger.Logger;
-import io.github.dsh105.vortex.util.Particle;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
