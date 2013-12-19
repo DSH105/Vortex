@@ -11,7 +11,7 @@
         <worldguard.version>5.8.1-SNAPSHOT</worldguard.version>
         <worldedit.version>5.5.8-SNAPSHOT</worldedit.version>
         <minecraft.version>1.7.2</minecraft.version>
-        <craftbukkit.version>R0.1</craftbukkit.version>
+        <craftbukkit.version>R0.2</craftbukkit.version>
         <cb_package>v1_7_R1</cb_package>
         <main.class>io.github.dsh105.vortex.VortexPlugin</main.class>
     </properties>
