@@ -1,6 +1,6 @@
 package io.github.dsh105.vortex.commands;
 
-import io.github.dsh105.dshutils.util.GeneralUtil;
+import io.github.dsh105.dshutils.util.StringUtil;
 import io.github.dsh105.dshutils.util.GeometryUtil;
 import io.github.dsh105.vortex.VortexPlugin;
 import io.github.dsh105.vortex.environment.earthquake.ShakeEntity;
@@ -58,7 +58,7 @@ public class VortexCommand implements CommandExecutor {
             }
         }
         Lang.sendTo(sender, Lang.COMMAND_ERROR.toString()
-                .replace("%cmd%", "/" + cmd.getLabel() + " " + (args.length == 0 ? "" : GeneralUtil.combineSplit(0, args, " "))));
+                .replace("%cmd%", "/" + cmd.getLabel() + " " + (args.length == 0 ? "" : StringUtil.combineSplit(0, args, " "))));
         return true;
     }
 }
