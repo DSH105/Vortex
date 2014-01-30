@@ -1,7 +1,8 @@
 package com.dsh105.vortex.commands;
 
-import io.github.dsh105.dshutils.util.StringUtil;
-import io.github.dsh105.dshutils.util.GeometryUtil;
+import com.dsh105.vortex.environment.earthquake.Earthquake;
+import com.dsh105.dshutils.util.StringUtil;
+import com.dsh105.dshutils.util.GeometryUtil;
 import com.dsh105.vortex.VortexPlugin;
 import com.dsh105.vortex.environment.earthquake.ShakeEntity;
 import com.dsh105.vortex.environment.tornado.Tornado;
@@ -9,6 +10,7 @@ import com.dsh105.vortex.environment.volcano.Volcano;
 import com.dsh105.vortex.environment.whirly.Whirly;
 import com.dsh105.vortex.util.Lang;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -53,6 +55,12 @@ public class VortexCommand implements CommandExecutor {
                             new ShakeEntity(null, e, 20 / 2, true);
                         }
                     }
+                    return true;
+                } else if (args[0].equalsIgnoreCase("earthquake")) {
+                    Player p = (Player) sender;
+                    Location l = p.getWorld().getHighestBlockAt(p.getLocation()).getLocation();
+                    l.setY(l.getY() - 2);
+                    new Earthquake(p.getLocation(), 50, 20*60);
                     return true;
                 }
             }

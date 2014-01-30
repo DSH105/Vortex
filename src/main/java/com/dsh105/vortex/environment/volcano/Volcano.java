@@ -1,8 +1,8 @@
 package com.dsh105.vortex.environment.volcano;
 
-import io.github.dsh105.dshutils.Particle;
-import io.github.dsh105.dshutils.logger.Logger;
-import io.github.dsh105.dshutils.util.GeometryUtil;
+import com.dsh105.dshutils.Particle;
+import com.dsh105.dshutils.logger.Logger;
+import com.dsh105.dshutils.util.GeometryUtil;
 import com.dsh105.vortex.VortexPlugin;
 import com.dsh105.vortex.environment.Environment;
 import com.dsh105.vortex.environment.earthquake.ShakeEntity;

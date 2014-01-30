@@ -1,7 +1,7 @@
 package com.dsh105.vortex.config;
 
-import io.github.dsh105.dshutils.config.YAMLConfig;
-import io.github.dsh105.dshutils.config.options.Options;
+import com.dsh105.dshutils.config.YAMLConfig;
+import com.dsh105.dshutils.config.options.Options;
 
 public class ConfigOptions extends Options {
 

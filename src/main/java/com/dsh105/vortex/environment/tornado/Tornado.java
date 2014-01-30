@@ -1,6 +1,6 @@
 package com.dsh105.vortex.environment.tornado;
 
-import io.github.dsh105.dshutils.util.GeometryUtil;
+import com.dsh105.dshutils.util.GeometryUtil;
 import com.dsh105.vortex.VortexPlugin;
 import com.dsh105.vortex.environment.Environment;
 import com.dsh105.vortex.util.BlockData;

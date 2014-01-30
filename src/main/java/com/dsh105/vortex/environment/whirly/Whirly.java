@@ -1,10 +1,10 @@
 package com.dsh105.vortex.environment.whirly;
 
-import io.github.dsh105.dshutils.Particle;
-import io.github.dsh105.dshutils.util.GeometryUtil;
+import com.dsh105.dshutils.Particle;
+import com.dsh105.dshutils.util.GeometryUtil;
 import com.dsh105.vortex.VortexPlugin;
 import com.dsh105.vortex.environment.Environment;
-import io.github.dsh105.dshutils.logger.Logger;
+import com.dsh105.dshutils.logger.Logger;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;

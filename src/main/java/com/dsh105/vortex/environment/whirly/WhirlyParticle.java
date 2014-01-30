@@ -1,8 +1,8 @@
 package com.dsh105.vortex.environment.whirly;
 
-import io.github.dsh105.dshutils.Particle;
+import com.dsh105.dshutils.Particle;
 import com.dsh105.vortex.VortexPlugin;
-import io.github.dsh105.dshutils.logger.Logger;
+import com.dsh105.dshutils.logger.Logger;
 import org.bukkit.Location;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;

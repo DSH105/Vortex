@@ -1,17 +1,17 @@
 package com.dsh105.vortex;
 
-import io.github.dsh105.dshutils.Metrics;
-import io.github.dsh105.dshutils.Updater;
-import io.github.dsh105.dshutils.Version;
-import io.github.dsh105.dshutils.command.CustomCommand;
-import io.github.dsh105.dshutils.config.YAMLConfig;
-import io.github.dsh105.dshutils.config.YAMLConfigManager;
-import io.github.dsh105.dshutils.util.ReflectionUtil;
+import com.dsh105.dshutils.Metrics;
+import com.dsh105.dshutils.Updater;
+import com.dsh105.dshutils.Version;
+import com.dsh105.dshutils.command.CustomCommand;
+import com.dsh105.dshutils.config.YAMLConfig;
+import com.dsh105.dshutils.config.YAMLConfigManager;
+import com.dsh105.dshutils.util.ReflectionUtil;
 import com.dsh105.vortex.commands.CommandComplete;
 import com.dsh105.vortex.commands.VortexCommand;
 import com.dsh105.vortex.config.ConfigOptions;
-import io.github.dsh105.dshutils.logger.ConsoleLogger;
-import io.github.dsh105.dshutils.logger.Logger;
+import com.dsh105.dshutils.logger.ConsoleLogger;
+import com.dsh105.dshutils.logger.Logger;
 import com.dsh105.vortex.util.Lang;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

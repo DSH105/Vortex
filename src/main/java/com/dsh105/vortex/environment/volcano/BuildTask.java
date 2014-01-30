@@ -1,6 +1,6 @@
 package com.dsh105.vortex.environment.volcano;
 
-import io.github.dsh105.dshutils.util.GeometryUtil;
+import com.dsh105.dshutils.util.GeometryUtil;
 import com.dsh105.vortex.VortexPlugin;
 import org.bukkit.Location;
 import org.bukkit.Material;
