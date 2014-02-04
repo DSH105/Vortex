@@ -75,11 +75,7 @@ public class Volcano extends Environment {
         if (!this.lavaBlocks.isEmpty()) {
             Iterator<FallingBlock> i = this.lavaBlocks.iterator();
             while (i.hasNext()) {
-                try {
-                    Particle.FIRE.sendTo(i.next().getLocation());
-                } catch (Exception e) {
-                    Logger.log(Logger.LogLevel.WARNING, "Failed to generate Volcano Explode particle.", e, true);
-                }
+                Particle.FIRE.sendTo(i.next().getLocation());
             }
         }
         if (!this.isBuilding && ++this.lavaCount >= 20 && VortexPlugin.r().nextBoolean()) {
@@ -87,11 +83,7 @@ public class Volcano extends Environment {
             FallingBlock fb = this.getLocation().getWorld().spawnFallingBlock(this.getSpewLocation(), Material.LAVA, (byte) 0);
             fb.setVelocity(new Vector(GeometryUtil.generateRandomFloat(), 0.7F, GeometryUtil.generateRandomFloat(0.02F, 0.15F)));
             fb.setDropItem(false);
-            try {
-                Particle.HUGE_EXPLOSION.sendTo(fb.getLocation());
-            } catch (Exception e) {
-                Logger.log(Logger.LogLevel.WARNING, "Failed to generate Volcano Explode particle.", e, true);
-            }
+            Particle.HUGE_EXPLOSION.sendTo(fb.getLocation());
             this.getLocation().getWorld().playSound(this.getLocation(), Sound.WITHER_SHOOT, 10F, 1F);
         }
 

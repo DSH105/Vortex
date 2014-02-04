@@ -30,11 +30,7 @@ public class WhirlyParticle extends BukkitRunnable {
             this.cancel();
         }
 
-        try {
-            this.particle.sendTo(this.location, new Vector(0, 0, 0), this.particle.getDefaultSpeed(), this.particle.getParticleAmount());
-        } catch (Exception e) {
-            Logger.log(Logger.LogLevel.WARNING, "Failed to generate Whirly Cloud particle.", e, true);
-        }
+        this.particle.sendTo(this.location, new Vector(0, 0, 0), this.particle.getDefaultSpeed(), this.particle.getParticleAmount());
 
         double d0 = Math.sin(this.shiftV < 1.0F ? this.shiftV += 0.05F : this.shiftV);
         float f1 = this.shiftH += 0.8F;

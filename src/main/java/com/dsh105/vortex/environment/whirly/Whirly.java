@@ -55,11 +55,7 @@ public class Whirly extends Environment {
             this.directionCount = 0;
         }
 
-        try {
-            Particle.CLOUD.sendTo(this.location, new Vector(0, 0, 0), 0F, 1);
-        } catch (Exception e) {
-            Logger.log(Logger.LogLevel.WARNING, "Failed to generate Whirly Cloud particle.", e, true);
-        }
+        Particle.CLOUD.sendTo(this.location, new Vector(0, 0, 0), 0F, 1);
 
         List<Entity> entityList = GeometryUtil.getNearbyEntities(this.location, 2);
         if (entityList != null && !entityList.isEmpty()) {
@@ -68,11 +64,7 @@ public class Whirly extends Environment {
                 Location l = e.getLocation().clone();
                 l.setY(l.getY() - 1D);
                 int id = l.getBlock().getTypeId();
-                try {
-                    Particle.BLOCK_DUST.sendDataParticle(e.getLocation(), id == 0 ? Material.WEB.getId() : id, (int) l.getBlock().getData());
-                } catch (Exception ex) {
-                    Logger.log(Logger.LogLevel.WARNING, "Failed to generate Whirly Block Dust particle.", ex, true);
-                }
+                Particle.BLOCK_DUST.sendDataParticle(e.getLocation(), id == 0 ? Material.WEB.getId() : id, (int) l.getBlock().getData());
             }
         }
 
