@@ -1,12 +1,12 @@
 package com.dsh105.vortex;
 
+import com.dsh105.dshutils.DSHPlugin;
 import com.dsh105.dshutils.Metrics;
 import com.dsh105.dshutils.Updater;
-import com.dsh105.dshutils.Version;
+import com.dsh105.dshutils.util.VersionUtil;
 import com.dsh105.dshutils.command.CustomCommand;
 import com.dsh105.dshutils.config.YAMLConfig;
 import com.dsh105.dshutils.config.YAMLConfigManager;
-import com.dsh105.dshutils.util.ReflectionUtil;
 import com.dsh105.vortex.commands.CommandComplete;
 import com.dsh105.vortex.commands.VortexCommand;
 import com.dsh105.vortex.config.ConfigOptions;
@@ -27,12 +27,8 @@ import java.lang.reflect.Field;
 import java.util.Random;
 
 
-public class VortexPlugin extends JavaPlugin {
+public class VortexPlugin extends DSHPlugin {
 
-    private static VortexPlugin instance;
-    private static Random random;
-
-    private YAMLConfigManager configManager;
     private YAMLConfig config;
     private YAMLConfig langConfig;
 
@@ -51,26 +47,22 @@ public class VortexPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        instance = this;
-        random = new Random();
-
-        ConsoleLogger.initiate(this);
+        super.onEnable();
         Logger.initiate(this, "Vortex", "[Vortex]");
 
-        if (!(Version.getNMSPackage()).equalsIgnoreCase(ReflectionUtil.getVersionString(this))) {
+        if (!VersionUtil.compareVersions()) {
             ConsoleLogger.log(Logger.LogLevel.NORMAL, this.secondaryColour + "VortexPlugin " + this.primaryColour
                     + this.getDescription().getVersion() + this.secondaryColour + " is only compatible with:");
-            ConsoleLogger.log(Logger.LogLevel.NORMAL, this.primaryColour + "    " + Version.getMinecraftVersion() + "-" + Version.getCraftBukkitVersion() + ".");
+            ConsoleLogger.log(Logger.LogLevel.NORMAL, this.primaryColour + "    " + VersionUtil.getMinecraftVersion() + "-" + VersionUtil.getCraftBukkitVersion() + ".");
             ConsoleLogger.log(Logger.LogLevel.NORMAL, this.secondaryColour + "Initialisation failed. Please update the plugin.");
             return;
         }
 
-        configManager = new YAMLConfigManager(this);
         String[] header = {"Vortex By DSH105", "---------------------",
                 "Configuration File",
                 "See the Vortex Wiki before editing this file"};
         try {
-            config = configManager.getNewConfig("config.yml", header);
+            config = this.getConfigManager().getNewConfig("config.yml", header);
             new ConfigOptions(config);
         } catch (Exception e) {
             Logger.log(Logger.LogLevel.SEVERE, "Failed to generate Configuration File (config.yml).", e, true);
@@ -88,7 +80,7 @@ public class VortexPlugin extends JavaPlugin {
         }
 
         try {
-            langConfig = configManager.getNewConfig("language.yml", new String[] {"Vortex By DSH105", "---------------------", "Language Configuration File"});
+            langConfig = this.getConfigManager().getNewConfig("language.yml", new String[] {"Vortex By DSH105", "---------------------", "Language Configuration File"});
             try {
                 for (Lang l : Lang.values()) {
                     String[] desc = l.getDescription();
@@ -106,7 +98,6 @@ public class VortexPlugin extends JavaPlugin {
         }
         langConfig.reloadConfig();
 
-        CustomCommand.initiate(this);
         try {
             if (Bukkit.getServer() instanceof CraftServer) {
                 final Field f = CraftServer.class.getDeclaredField("commandMap");
@@ -140,11 +131,11 @@ public class VortexPlugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
-
+        super.onDisable();
     }
 
     public static VortexPlugin getInstance() {
-        return instance;
+        return (VortexPlugin) getPluginInstance();
     }
 
     protected void checkUpdates() {
@@ -154,7 +145,7 @@ public class VortexPlugin extends JavaPlugin {
             getServer().getScheduler().runTaskAsynchronously(this, new Runnable() {
                 @Override
                 public void run() {
-                    Updater updater = new Updater(instance, 67541, file, updateType, false);
+                    Updater updater = new Updater(getInstance(), 67541, file, updateType, false);
                     update = updater.getResult() == Updater.UpdateResult.UPDATE_AVAILABLE;
                     if (update) {
                         name = updater.getLatestName();
@@ -196,10 +187,6 @@ public class VortexPlugin extends JavaPlugin {
             return this.langConfig;
         }
         return null;
-    }
-
-    public static Random r() {
-        return random;
     }
 
     public enum ConfigType {
